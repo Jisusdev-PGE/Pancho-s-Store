@@ -3,6 +3,7 @@
    1. Menú desplegable accesible (tablet y móvil)
    2. Enlace activo según la sección visible
    3. Año del pie de página
+   4. Header con sombra al hacer scroll
    Sin dependencias. Compatible con GitHub Pages.
    ===================================================================== */
 (function () {
@@ -14,7 +15,6 @@
     var menu = document.getElementById('menu');
     if (!toggle || !menu) return;
 
-    // Debe coincidir con el punto de corte de css/styles.css (max-width: 860px)
     var wide = window.matchMedia('(min-width: 861px)');
 
     function setOpen(open) {
@@ -27,12 +27,10 @@
       setOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
 
-    // Cerrar al elegir una sección
     menu.addEventListener('click', function (e) {
       if (e.target.closest('a')) setOpen(false);
     });
 
-    // Cerrar con Escape devolviendo el foco al botón
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
         setOpen(false);
@@ -40,12 +38,10 @@
       }
     });
 
-    // Cerrar al tocar fuera del encabezado
     document.addEventListener('click', function (e) {
       if (!e.target.closest('.site-header')) setOpen(false);
     });
 
-    // Al pasar a pantalla ancha, restablecer
     function onChange(e) { if (e.matches) setOpen(false); }
     if (wide.addEventListener) wide.addEventListener('change', onChange);
     else if (wide.addListener) wide.addListener(onChange);
@@ -81,8 +77,29 @@
     if (year) year.textContent = String(new Date().getFullYear());
   }
 
-  // El script se carga con "defer": el DOM ya está listo.
+  /* 4. Header al scroll --------------------------------------------- */
+  function setupHeaderScroll() {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+
+    var ticking = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 12);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    update();
+  }
+
   setupMenu();
   setupActiveLink();
   setupYear();
+  setupHeaderScroll();
 })();
