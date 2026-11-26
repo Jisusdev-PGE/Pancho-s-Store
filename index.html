@@ -28,23 +28,51 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="panchos-store-logo-640.png">
 
-  <!-- Fuentes: solo los pesos que usa el diseño -->
+  <!-- Fuentes: Syne (titulares, con carácter) + DM Sans (texto, muy legible) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap">
 
   <!-- El logo es lo primero que se ve: se pide con prioridad -->
   <link rel="preload" as="image" href="panchos-store-logo-640.webp" type="image/webp">
 
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="css/styles.css?v=mejoras-1">
+  <link rel="stylesheet" href="css/styles.css?v=estetica-1">
   <script src="js/whatsapp.js" defer></script>
   <script src="js/ui.js?v=3" defer></script>
 </head>
 <body>
+  <!-- Iconos de la marca (destello, bolsa y corona del logo), reutilizados con <use> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="chromeStroke" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="120">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset=".55" stop-color="#dedce5"/>
+        <stop offset="1" stop-color="#b892f5"/>
+      </linearGradient>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path d="M12 0C12.6 6.6 17.4 11.4 24 12C17.4 12.6 12.6 17.4 12 24C11.4 17.4 6.6 12.6 0 12C6.6 11.4 11.4 6.6 12 0Z"/>
+      </symbol>
+      <symbol id="i-bag" viewBox="0 0 100 120">
+        <path d="M18 40h64l6 66H12z"/>
+        <path d="M34 40v-8a16 16 0 0 1 32 0v8"/>
+        <path d="M50 62l3.4 9.6L63 75l-9.6 3.4L50 88l-3.4-9.6L37 75l9.6-3.4z"/>
+      </symbol>
+      <symbol id="i-crown" viewBox="0 0 100 100">
+        <path d="M10 76 4 30l28 22 18-30 18 30 28-22-6 46z"/>
+        <path d="M12 88h76"/>
+        <circle cx="4" cy="30" r="3"/><circle cx="50" cy="22" r="3"/><circle cx="96" cy="30" r="3"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <div class="announcement">Pancho's Store · Una nueva forma de llevar tu estilo</div>
+  <div class="announcement">
+    <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg>
+    Una nueva forma de llevar tu estilo
+    <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg>
+  </div>
 
   <header class="site-header">
     <div class="wrap header-inner">
@@ -85,11 +113,32 @@
         <div class="orb-ring orb-ring--outer"></div>
         <div class="orb-core"></div>
         <div class="orb-ring"></div>
+
+        <!-- Órbita inclinada: eco del aro que rodea el logotipo -->
+        <svg class="orb-orbit" viewBox="0 0 400 400" focusable="false">
+          <defs>
+            <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8d55e9" stop-opacity="0"/>
+              <stop offset=".3" stop-color="#c3a1ff"/>
+              <stop offset=".62" stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#dedce5" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g transform="rotate(-16 200 200)">
+            <ellipse cx="200" cy="200" rx="190" ry="72" fill="none" stroke="url(#orbitGrad)" stroke-width="2.6" stroke-linecap="round"/>
+            <ellipse cx="200" cy="200" rx="190" ry="84" fill="none" stroke="#c3a1ff" stroke-opacity=".18" stroke-width="1"/>
+          </g>
+        </svg>
+
         <!-- Logo real de la marca (decorativo: el nombre ya está en el encabezado) -->
         <picture class="orb-logo">
           <source srcset="panchos-store-logo-640.webp" type="image/webp">
           <img src="panchos-store-logo-640.png" alt="" width="640" height="348">
         </picture>
+
+        <svg class="spark spark--a" aria-hidden="true"><use href="#i-spark"/></svg>
+        <svg class="spark spark--b" aria-hidden="true"><use href="#i-spark"/></svg>
+        <svg class="spark spark--c" aria-hidden="true"><use href="#i-spark"/></svg>
       </div>
     </section>
 
@@ -110,34 +159,98 @@
           <p class="lede">Estamos preparando cada detalle. Esta es una primera mirada a lo que viene.</p>
         </div>
 
-        <div class="slots">
-          <article class="slot slot--tall">
-            <div class="slot-art art-rings" aria-hidden="true"><span class="slot-code">PS / 001</span></div>
-            <div class="slot-body">
-              <p class="slot-tag">Accesorios · Próximamente</p>
-              <h3>Detalles con carácter</h3>
-              <p class="slot-desc">Piezas pensadas para completar tu estilo.</p>
-              <p class="slot-status">Muy pronto</p>
+        <!-- Maqueta: textos, precios e imágenes son genéricos hasta tener productos reales -->
+        <div class="products">
+          <article class="product">
+            <div class="p-art art-violet" role="img" aria-label="Espacio reservado para la foto del producto">
+              <span class="p-badge">Nuevo</span>
+              <svg class="p-emblem" viewBox="0 0 100 120" aria-hidden="true"><use href="#i-bag"/></svg>
+              <span class="p-code">PS / 001</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 1 en WhatsApp</span></a>
+              </div>
             </div>
           </article>
 
-          <article class="slot slot--wide">
-            <div class="slot-art art-fan" aria-hidden="true"><span class="slot-code">PS / 002</span></div>
-            <div class="slot-body">
-              <p class="slot-tag">Edición especial · Próximamente</p>
-              <h3>La pieza distintiva</h3>
-              <p class="slot-desc">Una selección especial donde cada detalle cuenta.</p>
-              <p class="slot-status">Muy pronto</p>
+          <article class="product">
+            <div class="p-art art-black" role="img" aria-label="Espacio reservado para la foto del producto">
+              <svg class="p-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#i-crown"/></svg>
+              <span class="p-code">PS / 002</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 2 en WhatsApp</span></a>
+              </div>
             </div>
           </article>
 
-          <article class="slot slot--wide">
-            <div class="slot-art art-stripes" aria-hidden="true"><span class="slot-code">PS / 003</span></div>
-            <div class="slot-body">
-              <p class="slot-tag">Exclusivos · Próximamente</p>
-              <h3>Tu próxima favorita</h3>
-              <p class="slot-desc">Nuevas propuestas con una misma identidad.</p>
-              <p class="slot-status">Muy pronto</p>
+          <article class="product">
+            <div class="p-art art-chrome" role="img" aria-label="Espacio reservado para la foto del producto">
+              <span class="p-badge">Destacado</span>
+              <svg class="p-emblem p-emblem--spark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>
+              <span class="p-code">PS / 003</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 3 en WhatsApp</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="p-art art-rings" role="img" aria-label="Espacio reservado para la foto del producto">
+              <svg class="p-emblem" viewBox="0 0 100 120" aria-hidden="true"><use href="#i-bag"/></svg>
+              <span class="p-code">PS / 004</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 4 en WhatsApp</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="p-art art-dots" role="img" aria-label="Espacio reservado para la foto del producto">
+              <span class="p-badge">Nuevo</span>
+              <svg class="p-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#i-crown"/></svg>
+              <span class="p-code">PS / 005</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 5 en WhatsApp</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="p-art art-fan" role="img" aria-label="Espacio reservado para la foto del producto">
+              <svg class="p-emblem p-emblem--spark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>
+              <span class="p-code">PS / 006</span>
+            </div>
+            <div class="p-body">
+              <p class="p-cat">Categoría</p>
+              <h3>Nombre del producto</h3>
+              <div class="p-row">
+                <p class="p-price">S/ 00.00</p>
+                <a class="p-cta" data-whatsapp href="#contacto">Consultar<span class="visually-hidden"> por el producto 6 en WhatsApp</span></a>
+              </div>
             </div>
           </article>
         </div>
@@ -168,7 +281,9 @@
             <span>Elegancia y carácter en cada pieza.</span>
           </div>
           <div class="swatch">
-            <div class="swatch-chip chip-detail" aria-hidden="true"></div>
+            <div class="swatch-chip chip-detail" aria-hidden="true">
+              <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg>
+            </div>
             <b>Detalle</b>
             <span>La diferencia está en lo que parece pequeño.</span>
           </div>
@@ -179,6 +294,7 @@
     <section class="section" id="contacto" aria-labelledby="titulo-contacto">
       <div class="wrap">
         <div class="contact-card">
+          <svg class="spark contact-spark" aria-hidden="true"><use href="#i-spark"/></svg>
           <div>
             <h2 id="titulo-contacto">Lo bueno está por llegar.</h2>
             <p class="lede">¿Quieres conocer las novedades de Pancho's Store? Escríbenos y te contamos.</p>

@@ -1,7 +1,8 @@
 /* =====================================================================
-   Pancho's Store — Soft Dark Luxury
-   Mismos colores: plata · morado · negro
-   Nuevo lenguaje: cristal esmerilado, formas suaves, elegancia redondeada
+   Pancho's Store — Cromo sobre noche
+   Colores oficiales: plata · morado · negro
+   Lenguaje visual tomado del logotipo: cromo, destellos de cuatro
+   puntas, órbita inclinada, corona y bolsa.
    ===================================================================== */
 
 :root {
@@ -30,7 +31,8 @@
   --radius-pill: 999px;
 
   --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  /* Syne: ancha y con carácter, a la altura del logotipo. Si no carga, cae a DM Sans. */
+  --font-display: 'Syne', 'DM Sans', system-ui, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -53,6 +55,8 @@ body {
     radial-gradient(ellipse 40% 30% at 0% 80%, #4b2a8520, transparent),
     var(--obsidian);
   min-height: 100vh;
+  /* Recorta el brillo que se sale de pantalla sin romper el encabezado fijo */
+  overflow-x: clip;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -61,7 +65,7 @@ p { margin: 0; }
 h1, h2, h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .wrap {
@@ -73,15 +77,23 @@ h1, h2, h3 {
 section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 h2 {
-  font-size: clamp(30px, 4.8vw, 48px);
-  line-height: 1.08;
-  letter-spacing: -.04em;
+  font-size: clamp(27px, 4.2vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -.03em;
 }
 
 .lede {
   color: var(--muted);
   max-width: 42ch;
   font-size: 1.05rem;
+}
+
+/* Destello de cuatro puntas (el mismo del logotipo) */
+.spark {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  flex: none;
 }
 
 /* Accesibilidad */
@@ -117,18 +129,23 @@ h2 {
   outline-offset: 3px;
 }
 
-/* Announcement */
+/* Barra de anuncio */
 .announcement {
-  padding: 11px 16px;
-  background: linear-gradient(90deg, #160f22, #1f1530, #160f22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, #160f22, #221838, #160f22);
   color: #d4c0ff;
   font-size: 13px;
   text-align: center;
   letter-spacing: .02em;
   border-bottom: 1px solid var(--line);
 }
+.announcement .spark { width: 11px; height: 11px; color: var(--lilac); }
 
-/* Header — glass bar */
+/* Encabezado — barra de cristal */
 .site-header {
   position: sticky;
   top: 0;
@@ -250,7 +267,7 @@ h2 {
 .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Buttons — soft pills */
+/* Botones — píldoras suaves */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -293,14 +310,15 @@ h2 {
   font-size: 14px;
 }
 
-/* Hero */
+/* ---------------------------------------------------------------------
+   Hero
+   --------------------------------------------------------------------- */
 .hero {
   padding-block: clamp(48px, 7vw, 88px) clamp(40px, 6vw, 80px);
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: center;
   gap: clamp(28px, 5vw, 56px);
-  overflow: clip;
 }
 
 .status {
@@ -328,16 +346,16 @@ h2 {
 }
 
 .hero h1 {
-  font-size: clamp(42px, 8.5vw, 92px);
-  line-height: 0.95;
-  letter-spacing: -.055em;
+  font-size: clamp(40px, 7.2vw, 82px);
+  line-height: 1;
+  letter-spacing: -.04em;
   background: var(--chrome);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-bottom: 0.12em;
+  padding-bottom: 0.14em;
 }
-.hero .lede { margin-top: 22px; }
+.hero .lede { margin-top: 18px; }
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -345,7 +363,7 @@ h2 {
   margin-top: 32px;
 }
 
-/* Soft glowing orb */
+/* Orbe con el logo, órbita inclinada y destellos */
 .orb {
   position: relative;
   width: min(92%, 380px);
@@ -395,10 +413,20 @@ h2 {
     linear-gradient(var(--obsidian), var(--obsidian)) padding-box,
     conic-gradient(from 0deg, transparent, #8d55e9, transparent 40%, #c3a1ff, transparent) border-box;
 }
+.orb-orbit {
+  position: absolute;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(195, 161, 255, 0.55));
+  pointer-events: none;
+}
+.orb-orbit g { animation: orbit-breathe 9s ease-in-out infinite alternate; transform-origin: 200px 200px; }
 .orb-logo {
   position: relative;
   display: block;
-  width: 88%;
+  width: 84%;
 }
 .orb-logo img {
   display: block;
@@ -406,6 +434,17 @@ h2 {
   height: auto;
   filter: drop-shadow(0 0 22px rgba(141, 85, 233, 0.55));
 }
+
+/* Destellos que acompañan al orbe */
+.orb .spark {
+  position: absolute;
+  color: var(--silver);
+  filter: drop-shadow(0 0 10px rgba(195, 161, 255, 0.8));
+  animation: twinkle 4.6s ease-in-out infinite;
+}
+.spark--a { width: 30px; height: 30px; top: 2%; right: 6%; color: var(--lilac); }
+.spark--b { width: 18px; height: 18px; bottom: 10%; left: 2%; animation-delay: -1.8s; }
+.spark--c { width: 12px; height: 12px; top: 30%; left: -4%; color: var(--violet); animation-delay: -3.2s; }
 
 @keyframes rise {
   from { opacity: 0; transform: translateY(20px); }
@@ -424,162 +463,247 @@ h2 {
   from { opacity: 0.65; transform: scale(1); }
   to { opacity: 1; transform: scale(1.06); }
 }
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.7) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+@keyframes orbit-breathe {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(3deg); }
+}
 [data-rise] {
   animation: rise 0.85s var(--ease) both;
   animation-delay: calc(var(--i, 0) * 90ms);
 }
 .orb { animation: fade 1.3s var(--ease) 0.2s both; }
 
-/* Pillars — soft chips */
+/* ---------------------------------------------------------------------
+   Pilares — una línea tranquila, con destellos como separadores
+   --------------------------------------------------------------------- */
 .pillars {
-  padding-block: 8px;
+  border-block: 1px solid var(--line);
+  background: linear-gradient(90deg, transparent, rgba(141, 85, 233, 0.06), transparent);
 }
 .pillars ul {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  padding: 22px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 32px;
 }
 .pillars li {
-  padding: 20px 22px;
-  font: 500 17px/1.3 var(--font-display);
-  letter-spacing: -.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font: 600 clamp(15px, 1.8vw, 19px)/1.3 var(--font-display);
+  letter-spacing: -.01em;
   color: var(--silver);
-  text-align: center;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  transition: border-color .25s, transform .25s var(--ease), background .25s;
 }
-/* Elementos informativos (no son enlaces): sin movimiento al pasar el cursor */
-.pillars li:hover {
-  border-color: rgba(195, 161, 255, 0.3);
-  color: #fff;
+.pillars li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  flex: none;
+  background: var(--lilac);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.6 6.6 17.4 11.4 24 12C17.4 12.6 12.6 17.4 12 24C11.4 17.4 6.6 12.6 0 12C6.6 11.4 11.4 6.6 12 0Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.6 6.6 17.4 11.4 24 12C17.4 12.6 12.6 17.4 12 24C11.4 17.4 6.6 12.6 0 12C6.6 11.4 11.4 6.6 12 0Z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-/* Collection — soft glass cards */
+/* ---------------------------------------------------------------------
+   Colección — maqueta de cartas de producto
+   --------------------------------------------------------------------- */
 .section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 .section-head .lede { max-width: 34ch; font-size: 15px; }
 
-.slots {
+.products {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
 }
-.slot {
-  display: grid;
+/* La columna central baja un poco: ritmo editorial en lugar de una cuadrícula rígida */
+@media (min-width: 981px) {
+  .product:nth-child(3n + 2) { margin-top: 36px; }
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
   background: var(--glass);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   overflow: hidden;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  transition: border-color .3s var(--ease), transform .35s var(--ease),
-              box-shadow .35s var(--ease);
+  transition: border-color .3s var(--ease), box-shadow .35s var(--ease);
 }
-/* Aún no son enlaces (productos «Próximamente»): solo un brillo sutil, sin levantarse */
-.slot:hover {
-  border-color: rgba(195, 161, 255, 0.35);
-}
-.slot--tall {
-  grid-column: span 5;
-  grid-row: span 2;
-  grid-template-rows: 1.1fr auto;
-}
-.slot--wide {
-  grid-column: span 7;
-  grid-template-columns: minmax(140px, 38%) 1fr;
+.product:hover {
+  border-color: rgba(195, 161, 255, 0.4);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(141, 85, 233, 0.12);
 }
 
-.slot-art {
+/* Espacio de la foto */
+.p-art {
   position: relative;
-  min-height: 180px;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Sombra de suelo bajo el emblema */
+.p-art::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: 22%;
+  width: 46%;
+  height: 8%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.6), transparent 70%);
+}
+.p-emblem {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 38%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  fill: none;
+  stroke: url(#chromeStroke);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 8px 22px rgba(141, 85, 233, 0.5));
   transition: transform .5s var(--ease);
 }
-.slot--tall .slot-art { min-height: 280px; }
-.slot-code {
-  font: 500 13px var(--font-display);
-  letter-spacing: .08em;
+.p-emblem--spark {
+  width: 30%;
+  fill: #ffffff;
+  stroke: none;
+  filter: drop-shadow(0 0 22px rgba(195, 161, 255, 0.9));
+}
+.product:hover .p-emblem { transform: translate(-50%, calc(-50% - 6px)); }
+
+.p-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(9, 8, 13, 0.62);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--silver);
+  font-size: 12px;
+  font-weight: 600;
+}
+.p-code {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 1;
+  font: 600 12px var(--font-display);
+  letter-spacing: .06em;
   color: #e0ceff;
-  opacity: 0.9;
+  opacity: .85;
 }
 
+.art-violet {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(141, 85, 233, 0.55), transparent 70%),
+    linear-gradient(180deg, #1b1427, #0d0b13);
+}
+.art-black {
+  background:
+    repeating-linear-gradient(115deg, rgba(222, 220, 229, 0.06) 0 1px, transparent 1px 16px),
+    linear-gradient(200deg, #1f1829, #0a090e);
+}
+.art-chrome {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, #ffffff, transparent 70%),
+    linear-gradient(160deg, #f2f0f7, #b9b4c6 60%, #8f8b9c);
+}
+.art-chrome .p-emblem--spark {
+  fill: var(--violet);
+  filter: drop-shadow(0 6px 16px rgba(75, 42, 133, 0.45));
+}
+.art-chrome .p-code { color: #2a2236; opacity: .75; }
+.art-chrome::after { background: radial-gradient(ellipse, rgba(75, 42, 133, 0.35), transparent 70%); }
 .art-rings {
   background:
-    radial-gradient(circle at 50% 60%, rgba(195, 161, 255, 0.2) 0%, transparent 45%),
-    radial-gradient(circle at 50% 60%, #2a1a40, #12101a 70%);
+    repeating-radial-gradient(circle at 50% 60%, rgba(195, 161, 255, 0.16) 0 1px, transparent 1px 22px),
+    radial-gradient(circle at 50% 60%, #2a1a40, #0f0d16 72%);
+}
+.art-dots {
+  background:
+    radial-gradient(rgba(222, 220, 229, 0.24) 1px, transparent 1.5px) 0 0 / 16px 16px,
+    radial-gradient(ellipse 70% 60% at 50% 40%, #33204f, #0d0b13 75%);
 }
 .art-fan {
   background:
-    conic-gradient(from 200deg at 15% 100%, rgba(141, 85, 233, 0.45), transparent 30%, rgba(222, 220, 229, 0.15) 50%, transparent),
-    linear-gradient(165deg, #241836, #12101a);
-}
-.art-stripes {
-  background:
-    repeating-linear-gradient(120deg, rgba(222, 220, 229, 0.08) 0 2px, transparent 2px 18px),
-    linear-gradient(200deg, #2e1f48, #12101a 75%);
+    conic-gradient(from 200deg at 50% 108%, rgba(141, 85, 233, 0.55), transparent 28%, rgba(222, 220, 229, 0.2) 48%, transparent 70%),
+    linear-gradient(165deg, #241836, #0f0d16);
 }
 
-.slot-body {
-  padding: 22px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.slot-tag {
+.p-body { padding: 18px 20px 20px; }
+.p-cat {
   color: var(--lilac);
   font-size: 13px;
   font-weight: 500;
 }
-.slot h3 {
-  margin-top: 6px;
-  font-size: 22px;
+.product h3 {
+  margin-top: 4px;
+  font-size: 19px;
   line-height: 1.2;
-  letter-spacing: -.03em;
+  letter-spacing: -.02em;
 }
-.slot-desc {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.55;
+.p-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
 }
-.slot-status {
+.p-price {
+  font: 700 19px/1 var(--font-display);
+  letter-spacing: -.02em;
+  color: var(--silver);
+}
+.p-cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 5px 12px 5px 8px;
-  width: fit-content;
+  justify-content: center;
+  min-height: 38px;
+  padding: 6px 16px;
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-pill);
-  background: rgba(141, 85, 233, 0.12);
-  color: var(--silver);
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: .02em;
+  transition: background .25s var(--ease), border-color .25s var(--ease);
 }
-.slot-status::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--violet);
-  animation: pulse 2.2s ease-in-out infinite;
+.p-cta:hover {
+  background: var(--violet-hover);
+  border-color: var(--violet-hover);
+  color: #fff;
 }
 
-/* Story / Identity */
+/* ---------------------------------------------------------------------
+   Identidad
+   --------------------------------------------------------------------- */
 .story {
   position: relative;
 }
@@ -610,12 +734,23 @@ h2 {
   flex-direction: column;
 }
 .swatch-chip {
+  position: relative;
   height: clamp(120px, 18vw, 200px);
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
+  overflow: hidden;
 }
 .chip-silver {
   background: linear-gradient(155deg, #ffffff, #dedce5 50%, #8f8b9c);
+}
+/* Brillo diagonal, como metal pulido */
+.chip-silver::after {
+  content: "";
+  position: absolute;
+  inset: -20% 30% -20% auto;
+  width: 22%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
 }
 .chip-violet {
   background: linear-gradient(155deg, #b892f5, #8d55e9 55%, #4b2a85);
@@ -625,14 +760,22 @@ h2 {
   border-color: var(--line-strong);
 }
 .chip-detail {
+  display: grid;
+  place-items: center;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 20px, rgba(195, 161, 255, 0.4) 20px 21px, transparent 21px),
+    radial-gradient(circle at 50% 50%, rgba(141, 85, 233, 0.35), transparent 60%),
     linear-gradient(160deg, #1a1524, #12101a);
+}
+.chip-detail .spark {
+  width: 34px;
+  height: 34px;
+  color: var(--lilac);
+  filter: drop-shadow(0 0 12px rgba(195, 161, 255, 0.8));
 }
 .swatch b {
   margin-top: 12px;
-  font: 600 15px var(--font-display);
-  letter-spacing: -.02em;
+  font: 700 15px var(--font-display);
+  letter-spacing: -.01em;
 }
 .swatch span {
   margin-top: 3px;
@@ -641,30 +784,46 @@ h2 {
   line-height: 1.45;
 }
 
-/* Contact — soft glass card */
+/* ---------------------------------------------------------------------
+   Contacto
+   --------------------------------------------------------------------- */
 .contact-card {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   gap: clamp(24px, 4vw, 48px);
   align-items: end;
   padding: clamp(28px, 5vw, 56px);
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: calc(var(--radius) + 4px);
+  background:
+    radial-gradient(ellipse 60% 90% at 100% 0%, rgba(141, 85, 233, 0.16), transparent 70%),
+    var(--glass);
+  border-radius: calc(var(--radius) + 6px);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
 }
+/* Borde con degradado plata → morado */
 .contact-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #c3a1ff 30%, #8d55e9 60%, transparent);
-  opacity: 0.7;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(222, 220, 229, 0.5), rgba(255, 255, 255, 0.06) 40%, rgba(141, 85, 233, 0.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.contact-spark {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  width: 26px;
+  height: 26px;
+  color: var(--lilac);
+  filter: drop-shadow(0 0 12px rgba(195, 161, 255, 0.8));
+  animation: twinkle 4.6s ease-in-out infinite;
 }
 .contact-card .lede { margin-top: 14px; }
 .contact-action {
@@ -689,7 +848,7 @@ h2 {
   font-weight: 600;
 }
 
-/* Footer */
+/* Pie */
 .site-footer {
   border-top: 1px solid var(--line);
   padding-block: 28px;
@@ -704,8 +863,8 @@ h2 {
   flex-wrap: wrap;
 }
 .site-footer b {
-  font: 700 15px var(--font-display);
-  letter-spacing: -.03em;
+  font: 800 15px var(--font-display);
+  letter-spacing: -.01em;
   color: #fff;
 }
 .site-footer b span { color: var(--lilac); }
@@ -720,7 +879,7 @@ h2 {
 }
 .footer-nav a:hover { color: var(--text); }
 
-/* FAB */
+/* Botón flotante de WhatsApp (móvil) */
 .fab {
   display: none;
   position: fixed;
@@ -746,28 +905,21 @@ h2 {
 }
 .fab:active { transform: scale(0.95); }
 
-/* Responsive */
+/* ---------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------- */
 @media (max-width: 980px) {
   .hero {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 44px;
   }
-  .hero h1 { font-size: clamp(40px, 11vw, 80px); }
+  .hero h1 { font-size: clamp(38px, 10.5vw, 76px); }
   .orb {
     width: min(78%, 320px);
-    justify-self: start;
+    justify-self: center;
   }
 
-  .slot--tall,
-  .slot--wide {
-    grid-column: span 12;
-    grid-row: auto;
-  }
-  .slot--tall {
-    grid-template-rows: none;
-    grid-template-columns: minmax(140px, 38%) 1fr;
-  }
-  .slot--tall .slot-art { min-height: 180px; }
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   .story-grid,
   .contact-card { grid-template-columns: 1fr; }
@@ -816,8 +968,12 @@ h2 {
 }
 
 @media (max-width: 700px) {
-  .pillars ul { grid-template-columns: 1fr; }
-  .pillars li { text-align: left; padding: 16px 18px; }
+  .pillars ul {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 0;
+    gap: 8px;
+  }
 
   .section-head { display: block; }
   .section-head .lede { margin-top: 12px; }
@@ -827,20 +983,27 @@ h2 {
 }
 
 @media (max-width: 560px) {
-  .slot--wide,
-  .slot--tall { grid-template-columns: 1fr; }
-  .slot-art,
-  .slot--tall .slot-art { min-height: 160px; }
+  .logo img { height: 46px; }
   .actions .btn { width: 100%; }
-  .orb {
-    width: min(88%, 280px);
-    justify-self: center;
-  }
+  .orb { width: min(80%, 280px); }
+  .spark--a { right: 0; }
+  .spark--c { left: 0; }
+
+  /* Cartas compactas, dos por fila, como en una tienda móvil */
+  .products { gap: 12px; }
+  .p-body { padding: 12px 12px 14px; }
+  .product h3 { font-size: 15px; }
+  .p-cat { font-size: 12px; }
+  .p-row { margin-top: 12px; gap: 8px; }
+  .p-price { font-size: 16px; }
+  .p-cta { width: 100%; }
+  .p-badge { top: 8px; left: 8px; font-size: 11px; padding: 3px 9px; }
+  .p-code { left: 10px; bottom: 9px; font-size: 11px; }
+
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
   }
-  .logo img { height: 46px; }
 }
 
 /* Modo de alto contraste: el texto con degradado se haría invisible, se usa color sólido */
