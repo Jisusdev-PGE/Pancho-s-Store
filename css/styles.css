@@ -235,7 +235,10 @@ h2 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-bottom: .08em; /* evita recortar descendentes con background-clip */
+  /* background-clip recorta a la caja del texto: el relleno inferior protege la "g";
+     el margen negativo devuelve el espacio original */
+  padding-bottom: .2em;
+  margin-bottom: -.2em;
 }
 .hero .lede { margin-top: 28px; font-size: 17px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
@@ -243,7 +246,7 @@ h2 {
 /* Órbita cromada: lo memorable de la página */
 .orb {
   position: relative;
-  width: min(100%, 440px);
+  width: min(88%, 420px); /* deja sitio al anillo exterior, que sobresale un 6% */
   aspect-ratio: 1;
   justify-self: center;
   display: grid;
