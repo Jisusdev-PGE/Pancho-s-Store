@@ -15,17 +15,31 @@
   <meta property="og:title" content="Pancho's Store">
   <meta property="og:description" content="Pancho's Store — estilo que deja huella.">
   <meta property="og:url" content="https://jisusdev-pge.github.io/Pancho-s-Store/">
+  <meta property="og:image" content="https://jisusdev-pge.github.io/Pancho-s-Store/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logotipo de Pancho's Store sobre fondo negro y morado">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pancho's Store">
+  <meta name="twitter:description" content="Pancho's Store — estilo que deja huella.">
+  <meta name="twitter:image" content="https://jisusdev-pge.github.io/Pancho-s-Store/og-image.jpg">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="panchos-store-logo-640.png">
 
+  <!-- Fuentes: solo los pesos que usa el diseño -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+  <!-- El logo es lo primero que se ve: se pide con prioridad -->
+  <link rel="preload" as="image" href="panchos-store-logo-640.webp" type="image/webp">
 
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="css/styles.css?v=logo-in-3">
+  <link rel="stylesheet" href="css/styles.css?v=mejoras-1">
   <script src="js/whatsapp.js" defer></script>
-  <script src="js/ui.js?v=2" defer></script>
+  <script src="js/ui.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -34,7 +48,12 @@
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="logo" href="#" aria-label="Pancho's Store, ir al inicio"><img src="panchos-store-logo.png" alt="Pancho's Store" width="184" height="100"></a>
+      <a class="logo" href="#" aria-label="Pancho's Store, ir al inicio">
+        <picture>
+          <source srcset="panchos-store-logo-640.webp" type="image/webp">
+          <img src="panchos-store-logo-640.png" alt="Pancho's Store" width="640" height="348">
+        </picture>
+      </a>
 
       <nav class="nav" id="menu" aria-label="Principal">
         <a href="#coleccion">Colección</a>
@@ -66,7 +85,11 @@
         <div class="orb-ring orb-ring--outer"></div>
         <div class="orb-core"></div>
         <div class="orb-ring"></div>
-        <span class="orb-mark">PS</span>
+        <!-- Logo real de la marca (decorativo: el nombre ya está en el encabezado) -->
+        <picture class="orb-logo">
+          <source srcset="panchos-store-logo-640.webp" type="image/webp">
+          <img src="panchos-store-logo-640.png" alt="" width="640" height="348">
+        </picture>
       </div>
     </section>
 
@@ -174,8 +197,13 @@
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <b>PANCHO'S STORE<span>.</span></b>
+      <nav class="footer-nav" aria-label="Pie de página">
+        <a href="#coleccion">Colección</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+        <a data-whatsapp href="#contacto">WhatsApp</a>
+      </nav>
       <span>© <span id="year">2026</span> Pancho's Store</span>
-      <span>Plata, morado y negro</span>
     </div>
   </footer>
 

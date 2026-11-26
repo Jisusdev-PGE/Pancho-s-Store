@@ -8,7 +8,8 @@
   --obsidian: #09080d;
   --graphite: #15121b;
   --violet: #8d55e9;
-  --violet-hover: #9d6af0;
+  /* Hover más profundo (no más claro): mantiene el texto blanco legible (contraste 5.6:1) */
+  --violet-hover: #7b46de;
   --lilac: #c3a1ff;
   --silver: #dedce5;
   --steel: #8f8b9c;
@@ -158,12 +159,11 @@ h2 {
   animation: logo-in 1.15s var(--ease) both;
 }
 .logo:hover { opacity: .9; transform: scale(1.02); }
+.logo picture { display: block; }
 .logo img {
   display: block;
-  width: 136px;
-  height: 58px;
-  object-fit: contain;
-  object-position: left center;
+  height: 60px;
+  width: auto; /* respeta la proporción real del logo, sin recortes ni huecos */
   animation: logo-glow 1.4s var(--ease) both;
 }
 
@@ -395,16 +395,16 @@ h2 {
     linear-gradient(var(--obsidian), var(--obsidian)) padding-box,
     conic-gradient(from 0deg, transparent, #8d55e9, transparent 40%, #c3a1ff, transparent) border-box;
 }
-.orb-mark {
+.orb-logo {
   position: relative;
-  font: 600 clamp(56px, 14vw, 108px) var(--font-display);
-  letter-spacing: -.08em;
-  background: var(--chrome);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 20px rgba(166, 108, 255, 0.5));
-  padding-right: .06em;
+  display: block;
+  width: 88%;
+}
+.orb-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 22px rgba(141, 85, 233, 0.55));
 }
 
 @keyframes rise {
@@ -455,10 +455,9 @@ h2 {
   backdrop-filter: blur(12px);
   transition: border-color .25s, transform .25s var(--ease), background .25s;
 }
+/* Elementos informativos (no son enlaces): sin movimiento al pasar el cursor */
 .pillars li:hover {
-  border-color: rgba(195, 161, 255, 0.35);
-  background: rgba(141, 85, 233, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(195, 161, 255, 0.3);
   color: #fff;
 }
 
@@ -488,10 +487,9 @@ h2 {
   transition: border-color .3s var(--ease), transform .35s var(--ease),
               box-shadow .35s var(--ease);
 }
+/* Aún no son enlaces (productos «Próximamente»): solo un brillo sutil, sin levantarse */
 .slot:hover {
-  border-color: rgba(195, 161, 255, 0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(195, 161, 255, 0.12);
+  border-color: rgba(195, 161, 255, 0.35);
 }
 .slot--tall {
   grid-column: span 5;
@@ -511,7 +509,6 @@ h2 {
   padding: 18px;
   transition: transform .5s var(--ease);
 }
-.slot:hover .slot-art { transform: scale(1.04); }
 .slot--tall .slot-art { min-height: 280px; }
 .slot-code {
   font: 500 13px var(--font-display);
@@ -611,18 +608,11 @@ h2 {
 .swatch {
   display: flex;
   flex-direction: column;
-  transition: transform .3s var(--ease);
 }
-.swatch:hover { transform: translateY(-5px); }
 .swatch-chip {
   height: clamp(120px, 18vw, 200px);
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
-  transition: box-shadow .3s var(--ease), border-color .3s;
-}
-.swatch:hover .swatch-chip {
-  border-color: rgba(195, 161, 255, 0.4);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
 }
 .chip-silver {
   background: linear-gradient(155deg, #ffffff, #dedce5 50%, #8f8b9c);
@@ -719,6 +709,16 @@ h2 {
   color: #fff;
 }
 .site-footer b span { color: var(--lilac); }
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+.footer-nav a {
+  padding-block: 8px; /* área táctil cómoda */
+  transition: color .2s var(--ease);
+}
+.footer-nav a:hover { color: var(--text); }
 
 /* FAB */
 .fab {
@@ -777,7 +777,7 @@ h2 {
   :root { --header-h: 68px; }
   .header-cta { display: none; }
   .fab { display: inline-flex; }
-  .logo img { width: 118px; height: 50px; }
+  .logo img { height: 52px; }
 
   .site-header { height: auto; min-height: var(--header-h); }
   .header-inner { flex-wrap: wrap; padding-block: 10px; }
@@ -840,7 +840,16 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
   }
-  .logo img { width: 108px; height: 46px; }
+  .logo img { height: 46px; }
+}
+
+/* Modo de alto contraste: el texto con degradado se haría invisible, se usa color sólido */
+@media (forced-colors: active) {
+  .hero h1 {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
