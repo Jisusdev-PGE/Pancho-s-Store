@@ -134,11 +134,18 @@ h2 {
 }
 
 .logo {
-  font: 700 24px var(--font-display);
-  letter-spacing: -.06em;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
   white-space: nowrap;
 }
-.logo span { color: var(--lilac); }
+.logo img {
+  display: block;
+  width: 132px;
+  height: 58px;
+  object-fit: contain;
+  object-position: left center;
+}
 
 .nav { display: flex; gap: 32px; font-size: 15px; color: #c8c2d0; }
 .nav a { padding: 6px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
