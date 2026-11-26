@@ -155,6 +155,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   transition: opacity .2s var(--ease), transform .2s var(--ease);
+  animation: logo-in 1.15s var(--ease) both;
 }
 .logo:hover { opacity: .9; transform: scale(1.02); }
 .logo img {
@@ -163,6 +164,37 @@ h2 {
   height: 58px;
   object-fit: contain;
   object-position: left center;
+  animation: logo-glow 1.4s var(--ease) both;
+}
+
+/* Animación de carga del logo al entrar */
+@keyframes logo-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.88);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes logo-glow {
+  0% {
+    filter: drop-shadow(0 0 0 transparent) brightness(0.7);
+    opacity: 0.35;
+  }
+  45% {
+    filter: drop-shadow(0 0 20px rgba(141, 85, 233, 0.65)) brightness(1.15);
+    opacity: 1;
+  }
+  100% {
+    filter: drop-shadow(0 0 0 transparent) brightness(1);
+    opacity: 1;
+  }
 }
 
 .nav {
